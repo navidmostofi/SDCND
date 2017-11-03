@@ -17,13 +17,6 @@ Once the install for uWebSocketIO is complete, the main program can be built and
 
 Tips for setting up your environment can be found [here](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/0949fca6-b379-42af-a919-ee50aa304e6a/lessons/f758c44c-5e40-4e01-93b5-1a82aa4e044f/concepts/23d376c7-0195-4276-bdf0-e02f1f3c665d)
 
-Note that the programs that need to be written to accomplish the project are src/ukf.cpp, src/ukf.h, tools.cpp, and tools.h
-
-The program main.cpp has already been filled out, but feel free to modify it.
-
-Here is the main protcol that main.cpp uses for uWebSocketIO in communicating with the simulator.
-
-
 INPUT: values provided by the simulator to the c++ program
 
 ["sensor_measurement"] => the measurment that the simulator observed (either lidar or radar)
@@ -60,33 +53,27 @@ OUTPUT: values provided by the c++ program to the simulator
 4. Run it: `./UnscentedKF` Previous versions use i/o from text files.  The current state uses i/o
 from the simulator.
 
-## Editor Settings
-
-We've purposefully kept editor configuration files out of this repo in order to
-keep it as simple and environment agnostic as possible. However, we recommend
-using the following settings:
-
-* indent using spaces
-* set tab width to 2 spaces (keeps the matrices in source code aligned)
-
-## Code Style
-
-Please stick to [Google's C++ style guide](https://google.github.io/styleguide/cppguide.html) as much as possible.
-
-## Generating Additional Data
-
-This is optional!
-
-If you'd like to generate your own radar and lidar data, see the
-[utilities repo](https://github.com/udacity/CarND-Mercedes-SF-Utilities) for
-Matlab scripts that can generate additional data.
-
 ## Project Instructions and Rubric
 
 This information is only accessible by people who are already enrolled in Term 2
 of CarND. If you are enrolled, see [the project page](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/0949fca6-b379-42af-a919-ee50aa304e6a/lessons/c3eb3583-17b2-4d83-abf7-d852ae1b9fff/concepts/f437b8b0-f2d8-43b0-9662-72ac4e4029c1)
 for instructions and the project rubric.
 
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
+# Results
 
+In this project I implemented an unscented Kalman filter using the CTRV motion model and C++. We will be using the same bicycle simulation data set from the extended Kalman filter project. That way We can compare our results with the EKF project.
+
+Remember that all Kalman filters have the same three steps:
+
+- Initialization
+- Prediction
+- Update
+
+A standard Kalman filter can only handle linear equations. Both the extended Kalman filter and the unscented Kalman filter allow you to use non-linear equations; the difference between EKF and UKF is how they handle non-linear equations. But the basics are the same: initialize, predict, update.
+
+The project "unscented Kalman filter" is based on the same structure as the extended Kalman filter.
+RMSE for two datasets are as follow: ([X, Y, Vx, Vy])
+- 1st dataset : [0.07, 0.08, 0.29, 0.27] 
+- 2nd dataset : [0.07, 0.06, 0.51, 0.29]
+
+The results meet the rubric points of the project. 
