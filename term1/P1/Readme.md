@@ -1,6 +1,6 @@
 # Finding Lane Lines 
 
-##Pipeline description
+## Pipeline description
 
 For this project I used opencv library for finding lane lines on the road.
 
@@ -29,7 +29,11 @@ of hough transformation to have good performance.
 
 By applying above pipeline on images, results are as follow:
 
+![1](https://user-images.githubusercontent.com/24753756/33417132-645c172c-d5b5-11e7-9ae5-c0a8ee522570.PNG)
 
+![2](https://user-images.githubusercontent.com/24753756/33417135-69fdff10-d5b5-11e7-82bb-6d478b39bd49.PNG)
+
+![3](https://user-images.githubusercontent.com/24753756/33417140-6d758758-d5b5-11e7-8c96-1546e61b247b.PNG)
 
 In order to draw a single line on the left and right lanes, I modified the draw_lines() function by separated lines
 based on their slope to left and right lines. Then I calculated slope, intercept and length of each line and
