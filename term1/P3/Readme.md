@@ -31,6 +31,7 @@ The model includes dropout to prevent overfitting, a flatten layer and four full
 
 You can see the model summary below:
 
+![1](https://user-images.githubusercontent.com/24753756/33592954-7fe2f722-d9a2-11e7-8995-2fca04c9cede.PNG)
 
 The model was trained and validated on different data sets to ensure that the model was not overfitting and was tested by running it through the simulator and ensuring that the vehicle could stay on the track. The video file has been saved and you can find it in my github repository.
 
@@ -66,12 +67,15 @@ The final model architecture described in previous sections.
 
 To capture good driving behavior, I first used center lane images. Here is an example image of center lane driving:
 
+![2](https://user-images.githubusercontent.com/24753756/33592955-800adf6c-d9a2-11e7-8839-4a5811b0f681.PNG)
 
 I then used left side and right side images of the road back to center so that the vehicle would learn to recover to center when it goes off the road. These images show what a recovery looks like.
 
+![3](https://user-images.githubusercontent.com/24753756/33592956-803131ee-d9a2-11e7-9ab0-92ac6bbf304d.PNG)
 
 To augment the data sat, I also flipped images and angles thinking that this would help to generate more data and the model to be more general and prevent overfitting. For example, here is an image that has then been flipped:
 
+![4](https://user-images.githubusercontent.com/24753756/33592957-80786708-d9a2-11e7-8f2d-5f3f74aa62f9.PNG)
 
 I also used adding and subtracting correction factor to steering angle of left and right camera images and used brightness augmentation to simulate different conditions such as day and night.
 
