@@ -52,16 +52,19 @@ src = np.float32(
 [((img_size[1] / 6) - 10), img_size[0]],
 [(img_size[1] * 5 / 6) + 60, img_size[0]],
 [(img_size[1] / 2 + 55), img_size[0] / 2 + 100]])
+
 dst = np.float32(
 [[(img_size[1] / 4), 0],
 [(img_size[1] / 4), img_size[0]],
 [(img_size[1] * 3 / 4), img_size[0]],
 [(img_size[1] * 3 / 4), 0]])
+
 src:
 array([[ 585. , 460. ],
  [ 203.33332825, 720. ],
  [ 1126.66662598, 720. ],
  [ 695. , 460. ]], dtype=float32)
+ 
 dst:
 array([[ 320., 0.],
  [ 320., 720.],
