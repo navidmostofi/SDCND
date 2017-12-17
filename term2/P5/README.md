@@ -22,37 +22,37 @@ I used steering angle ,“δ”,and accelerator and brake pedal ,“a”, as act
 The reference trajectory is typically passed to the control block as a polynomial. This polynomial is usually 3rd order, since third 
 order polynomials will fit trajectories for most roads. So I used a 3rd order polynomial as reference trajectory following equations to update state vector:
 
-xt+1=xt+vt∗cos(ψt)∗dt
+x_(t+1)=x_t+v_t∗cos(ψ_t)∗dt
 
-yt+1=yt+vt∗sin(ψt)∗dt
+y_(t+1)=y_t+v_t∗sin(ψ_t)∗dt
 
-ψt+1=ψt+Lfvt∗δ∗dt
+ψ_(t+1)=ψ_t+Lf*v_t∗δ∗dt
 
-vt+1=vt+at∗dt
+v_(t+1)=v_t+a_t∗dt
 
-ctet+1=f(xt)−yt+(vt∗sin(eψt)∗dt)
+cte_(t+1)=f(x_t)−y_t+(v_t∗sin(eψ_t)∗dt)
 
 This can be broken up into two parts:
 
-f(xt)−yt being current cross track error.
+f(x_t)−y_t being current cross track error.
 
-vt∗sin(eψt)∗dt being the change in error caused by the vehicle's movement.
+v_t∗sin(eψ_t)∗dt being the change in error caused by the vehicle's movement.
 
-eψt+1=ψt−ψdest+(Lfvt∗δt∗dt)
+eψ_(t+1)=ψ_t−ψdes_t+(Lf*v_t∗δ_t∗dt)
 
 Similarly to the cross track error this can be interpreted as two parts:
 
-ψt−ψdest being current orientation error.
+ψ_t−ψdes_t being current orientation error.
 
-Lfvt∗δt∗dt being the change in error caused by the vehicle's movement.
+Lf*v_t∗δ_t∗dt being the change in error caused by the vehicle's movement.
 
 In the classroom you've referred to the ψ update equation as:
 
-ψt+1=ψt+Lfvt∗δt∗dt
+ψ_(t+1)=ψ_t+Lf*v_t∗δ_t∗dt
 
 Note if δ is positive we rotate counter-clockwise, or turn left. In the simulator however, a positive value implies a right turn and a negative value implies a left turn. Two possible ways to get around this are:
 
-Change the update equation to ψt+1=ψt−Lfvt∗δt∗dt
+Change the update equation to ψ_(t+1)=ψ_t−Lf*v_t∗δ_t∗dt
 
 Leave the update equation as is and multiply the steering value by -1 before sending it back to the server.
 
