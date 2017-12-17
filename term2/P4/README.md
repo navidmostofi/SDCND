@@ -1,14 +1,21 @@
 # CarND-Controls-PID
-Self-Driving Car Engineer Nanodegree Program
+## Self-Driving Car Engineer Nanodegree Program
 
 
 In this project I used 2 PID (stands for Proportional, Integral, Differential) controllers to control steerning value and throttle of the car. I tuned Kp, Ki, Kd parameters of PID controller manually.
+
 CTE = desired position – actual position
+
 The P component causes the steering angle to be proportional to CTE. If car is in the right side of center of the road, it will turn to left and if the car is in the left side of center of the road, it will turn to right. But the car will osilate around desired trajectory.
+
 The D component is used to reduce osilations caused by P component. Output of controller is proportional to changing rate of CTE. A properly tuned D parameter will cause the car to approach the center line smoothly without ringing.
+
 The I component is used to reduce systematic bias. This bias can take several forms, such as a steering drift.
+
 Tuning PID controller is not easy. I tuned the parameters manually and started from suggested values from lectures of Sebastian Thurn. Then tuned them to get good results. Finally PID controller parameters equal to [0.224, 0.00045, 4.5] worked well.
+
 I used just P controller for throttle controller and set target speed to 55 MPH and it worked good. I started from little values and increased that to 0.2 and it works.
+
 You can find a video of performance of pid controller in the following link:
 https://youtu.be/aDVZdrf69QA
 
