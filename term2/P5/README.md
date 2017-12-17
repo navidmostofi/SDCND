@@ -6,47 +6,82 @@
 #### The Model
 
 Dynamic models aim to embody the actual vehicle dynamics as closely as possible.
+
 They might encompass tire forces, longitudinal and lateral forces, inertia, gravity, air resistance, drag, mass, and the geometry of the vehicle.
+
 Not all dynamic models are created equal! Some may consider more of these factors than others.
+
 Advanced dynamic models even take internal vehicle forces into account - for example, how responsive the chassis suspension is.
+
 I used a dynamic model. The state vector is as follow:
+
 State = [x,y,ψ,v,cte,eψ].
+
 I used steering angle ,“δ”,and accelerator and brake pedal ,“a”, as actuators.
-The reference trajectory is typically passed to the control block as a polynomial. This polynomial is usually 3rd order, since third order polynomials will fit trajectories for most roads. So I used a 3rd order polynomial as reference trajectory following equations to update state vector:
+
+The reference trajectory is typically passed to the control block as a polynomial. This polynomial is usually 3rd order, since third 
+order polynomials will fit trajectories for most roads. So I used a 3rd order polynomial as reference trajectory following equations to update state vector:
+
 xt+1=xt+vt∗cos(ψt)∗dt
+
 yt+1=yt+vt∗sin(ψt)∗dt
+
 ψt+1=ψt+Lfvt∗δ∗dt
+
 vt+1=vt+at∗dt
+
 ctet+1=f(xt)−yt+(vt∗sin(eψt)∗dt)
+
 This can be broken up into two parts:
-	f(xt)−yt being current cross track error.
-	vt∗sin(eψt)∗dt being the change in error caused by the vehicle's movement.
+
+f(xt)−yt being current cross track error.
+
+vt∗sin(eψt)∗dt being the change in error caused by the vehicle's movement.
 
 eψt+1=ψt−ψdest+(Lfvt∗δt∗dt)
+
 Similarly to the cross track error this can be interpreted as two parts:
-	ψt−ψdest being current orientation error.
-	Lfvt∗δt∗dt being the change in error caused by the vehicle's movement.
+
+ψt−ψdest being current orientation error.
+
+Lfvt∗δt∗dt being the change in error caused by the vehicle's movement.
 
 In the classroom you've referred to the ψ update equation as:
+
 ψt+1=ψt+Lfvt∗δt∗dt
+
 Note if δ is positive we rotate counter-clockwise, or turn left. In the simulator however, a positive value implies a right turn and a negative value implies a left turn. Two possible ways to get around this are:
-	Change the update equation to ψt+1=ψt−Lfvt∗δt∗dt
-	Leave the update equation as is and multiply the steering value by -1 before sending it back to the server.
+
+Change the update equation to ψt+1=ψt−Lfvt∗δt∗dt
+
+Leave the update equation as is and multiply the steering value by -1 before sending it back to the server.
+
 I used 2nd solution.
 
 #### Timestep Length and Elapsed Duration (N & dt)
 
 In the case of driving a car, T should be a few seconds, at most. Beyond that horizon, the environment will change enough that it won't make sense to predict any further into the future.
+
 The prediction horizon is the duration over which future predictions are made. We’ll refer to this as T.
+
 T is the product of two other variables, N and dt.
+
 N is the number of timesteps in the horizon. dt is how much time elapses between actuations. For example, if N were 20 and dt were 0.5, then T would be 10 seconds.
+
 N, dt, and T are hyperparameters we will need to tune for each model predictive controller you build. However, there are some general guidelines. T should be as large as possible, while dt should be as small as possible.
+
 These guidelines create tradeoffs.
+
 The goal of Model Predictive Control is to optimize the control inputs: [δ,a]. An optimizer will tune these inputs until a low cost vector of control inputs is found. The length of this vector is determined by N:
+
 [δ1,a1,δ2,a2,...,δN−1,aN−1]
+
 Thus N determines the number of variables optimized by the MPC. This is also the major driver of computational cost.
+
 MPC attempts to approximate a continuous reference trajectory by means of discrete paths between actuations. Larger values of dt result in less frequent actuations, which makes it harder to accurately approximate a continuous reference trajectory. This is sometimes called "discretization error".
+
 A good approach to setting N, dt, and T is to first determine a reasonable range for T and then tune dt and N appropriately, keeping the effect of each in mind.
+
 I used N=10 and dt=0.1. It just works fine.
 
 #### Polynomial Fitting and MPC Preprocessing
